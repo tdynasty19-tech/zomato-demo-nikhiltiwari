@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Trash2, User, Mail, Phone } from "lucide-react";
+import { getApiUrl } from "../config/api";
 
 interface UserData {
   id: number;
@@ -35,7 +36,7 @@ function Update() {
 
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/users/${userId}`);
+        const response = await fetch(getApiUrl(`/api/users/${userId}`));
         const data = await response.json();
 
         if (response.ok) {
@@ -72,7 +73,7 @@ function Update() {
     setSaving(true);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/users/${userId}`, {
+      const response = await fetch(getApiUrl(`/api/users/${userId}`), {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +119,7 @@ function Update() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/users/${userId}`, {
+      const response = await fetch(getApiUrl(`/api/users/${userId}`), {
         method: "DELETE",
       });
 

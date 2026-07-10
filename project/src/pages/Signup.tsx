@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getApiUrl } from "../config/api";
 import {
   User,
   Phone,
@@ -56,7 +57,7 @@ const Signup: React.FC = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/api/users/create",
+        getApiUrl("/api/users/create"),
         {
           method: "POST",
           headers: {

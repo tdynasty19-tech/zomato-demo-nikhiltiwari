@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Phone, Lock } from "lucide-react";
+import { getApiUrl } from "../config/api";
 
 interface LoginProps {
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,7 +36,7 @@ const Login: React.FC<LoginProps> = ({ setIsLogin }) => {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/api/users/login",
+        getApiUrl("/api/users/login"),
         {
           method: "POST",
           headers: {

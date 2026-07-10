@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getApiUrl } from "../config/api";
 import {
   Mail,
   Phone,
@@ -64,7 +65,7 @@ export default function Profile({ setIsLogin }: ProfileProps) {
 
       try {
         const response = await fetch(
-          `http://localhost:8000/api/users/${userId}`
+          getApiUrl(`/api/users/${userId}`)
         );
 
         const data = await response.json();
