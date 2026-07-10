@@ -9,9 +9,10 @@ import Favorites from "./pages/Favorites";
 import Orders from "./pages/Orders";
 import Profile from "./pages/Profile";
 import ProtectRoute from "./pages/ProtectRoute";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { useState } from "react";
+import Update from "./pages/Update";
 
 
 function App() {
@@ -42,11 +43,12 @@ function App() {
             <Route path="orders" element={<Orders />} />
             <Route path="login" element={<Login setIsLogin={setIsLogin} />} />
             <Route path="signup" element={<Signup />} />
+            <Route path="update" element={<Update />} />
             <Route
               path="profile"
               element={
                 <ProtectRoute isLogin={isLogin}>
-                  <Profile />
+                  <Profile setIsLogin={setIsLogin} />
                 </ProtectRoute>
               }
             />

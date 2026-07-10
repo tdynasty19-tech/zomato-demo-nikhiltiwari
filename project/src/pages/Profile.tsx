@@ -196,10 +196,11 @@ export default function Profile({ setIsLogin }: ProfileProps) {
 
             </div>
 
-            <button className="px-4 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50">
-
+            <button
+              onClick={() => navigate("/update")}
+              className="..."
+            >
               Edit Profile
-
             </button>
 
           </div>
