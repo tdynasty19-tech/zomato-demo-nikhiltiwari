@@ -1,24 +1,17 @@
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
-  "zomato", // Database Name
-  "root",   // MySQL Username
-  "nikhil@12345", // MySQL Password
+  "mysql://root:quofYnbeanjxxtgVyyNmcoSkpWwVdpcE@hayabusa.proxy.rlwy.net:54176/railway",
   {
-    host: "localhost",
     dialect: "mysql",
     logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   }
 );
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("✅ Database Connected Successfully");
-  })
-  .catch((err) => {
-    console.log("❌ Database Connection Failed");
-    console.log(err.message);
-  });
 
 module.exports = sequelize;
