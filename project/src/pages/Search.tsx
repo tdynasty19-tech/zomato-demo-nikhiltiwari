@@ -52,7 +52,6 @@ export default function Search() {
 
   let filteredRestaurants = sampleRestaurants;
 
-  // Apply search
   if (searchQuery) {
     filteredRestaurants = filteredRestaurants.filter(
       (r) =>
@@ -61,7 +60,6 @@ export default function Search() {
     );
   }
 
-  // Apply filters
   if (activeFilters.includes('rating4')) {
     filteredRestaurants = filteredRestaurants.filter((r) => r.rating >= 4.0);
   }
@@ -75,7 +73,6 @@ export default function Search() {
     filteredRestaurants = filteredRestaurants.filter((r) => r.offers && r.offers.length > 0);
   }
 
-  // Apply sort
   switch (activeSort) {
     case 'deliveryTime':
       filteredRestaurants = [...filteredRestaurants].sort(
@@ -98,85 +95,61 @@ export default function Search() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Search Header */}
-      <div className="bg-white shadow-sm sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <form onSubmit={handleSearch} className="flex gap-2">
+    <div className="min-h-screen bg-[#05070f] text-slate-100">
+      <div className="sticky top-16 z-20 bg-[#05070f]/95 backdrop-blur-xl border-b border-white/10 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <form onSubmit={handleSearch} className="flex w-full gap-3 lg:w-[65%]">
             <div className="relative flex-1">
-              <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for restaurants, cuisine or a dish"
-                className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl outline-none focus:border-red-500 transition-colors"
+                className="w-full rounded-3xl border border-white/10 bg-slate-900/90 py-3 pl-12 pr-4 text-slate-100 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400/20 transition"
               />
             </div>
             <button
               type="submit"
-              className="bg-red-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors"
+              className="rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-orange-500/20 hover:opacity-95 transition"
             >
               Search
             </button>
           </form>
-        </div>
-      </div>
-
-      {/* Filters */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 py-3">
-          <div className="flex items-center gap-4 overflow-x-auto scrollbar-hide">
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-full whitespace-nowrap hover:bg-gray-50 transition-colors"
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              <span>Filters</span>
-            </button>
-            <div className="h-6 w-px bg-gray-200" />
-            <div className="flex gap-2">
-              {filterOptions.map((filter) => (
-                <button
-                  key={filter.id}
-                  onClick={() => toggleFilter(filter.id)}
-                  className={`px-4 py-2 rounded-full whitespace-nowrap font-medium transition-colors ${
-                    activeFilters.includes(filter.id)
-                      ? 'bg-red-500 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {filter.label}
-                </button>
-              ))}
-            </div>
-            {(activeFilters.length > 0 || searchQuery) && (
+          <div className="flex flex-wrap gap-3">
+            {filterOptions.map((filter) => (
               <button
-                onClick={clearFilters}
-                className="flex items-center gap-1 text-gray-500 hover:text-gray-700 whitespace-nowrap"
+                key={filter.id}
+                onClick={() => toggleFilter(filter.id)}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                  activeFilters.includes(filter.id)
+                    ? 'bg-orange-500 text-slate-950'
+                    : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'
+                }`}
               >
-                <X className="w-4 h-4" />
-                <span>Clear all</span>
+                {filter.label}
               </button>
-            )}
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-bold text-gray-900">
-            {searchQuery
-              ? `Results for "${searchQuery}"`
-              : 'All Restaurants'}
-          </h1>
-          <div className="flex items-center gap-2">
-            <span className="text-gray-500 text-sm">Sort by:</span>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-white">
+              {searchQuery ? `Results for "${searchQuery}"` : 'All Restaurants'}
+            </h1>
+            <p className="text-slate-400 mt-2">
+              {filteredRestaurants.length} restaurant{filteredRestaurants.length === 1 ? '' : 's'} found
+            </p>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-slate-900/90 px-4 py-3 text-sm text-slate-300 flex items-center gap-3">
+            <span>Sort by:</span>
             <select
               value={activeSort}
               onChange={(e) => setActiveSort(e.target.value)}
-              className="border-none outline-none text-gray-700 font-medium bg-transparent cursor-pointer"
+              className="bg-transparent outline-none text-slate-100"
             >
               {sortOptions.map((option) => (
                 <option key={option.id} value={option.id}>
@@ -188,63 +161,23 @@ export default function Search() {
         </div>
 
         {filteredRestaurants.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg mb-4">No restaurants found</p>
+          <div className="rounded-3xl border border-white/10 bg-slate-950/90 p-12 text-center text-slate-400">
+            <p className="text-lg font-semibold text-slate-100 mb-3">No restaurants found</p>
             <button
               onClick={clearFilters}
-              className="text-red-500 font-medium hover:text-red-600"
+              className="rounded-full bg-orange-500 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-orange-400 transition"
             >
               Clear all filters and try again
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid gap-6 lg:grid-cols-3">
             {filteredRestaurants.map((restaurant) => (
               <RestaurantCard key={restaurant.id} restaurant={restaurant} />
             ))}
           </div>
         )}
       </div>
-
-      {/* Filter Modal */}
-      {showFilters && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-end justify-center">
-          <div className="bg-white rounded-t-2xl p-6 max-w-md w-full animate-slide-up">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-bold">Filters</h3>
-              <button onClick={() => setShowFilters(false)}>
-                <X className="w-6 h-6 text-gray-500" />
-              </button>
-            </div>
-            <div className="space-y-6">
-              <div>
-                <h4 className="font-medium text-gray-900 mb-3">Sort By</h4>
-                <div className="space-y-2">
-                  {sortOptions.map((option) => (
-                    <button
-                      key={option.id}
-                      onClick={() => setActiveSort(option.id)}
-                      className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
-                        activeSort === option.id
-                          ? 'bg-red-50 text-red-500'
-                          : 'hover:bg-gray-100 text-gray-700'
-                      }`}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <button
-                onClick={() => setShowFilters(false)}
-                className="w-full bg-red-500 text-white py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors"
-              >
-                Apply Filters
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

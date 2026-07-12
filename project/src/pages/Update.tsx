@@ -149,20 +149,23 @@ function Update() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center p-6">
-      <div className="bg-white rounded-3xl shadow-xl w-full max-w-xl p-8">
+    <div className="min-h-screen bg-[#05070f] flex justify-center items-center p-6 text-slate-100">
+      <div className="w-full max-w-xl rounded-[2rem] border border-white/10 bg-slate-950/95 p-8 shadow-[0_35px_90px_-30px_rgba(0,0,0,0.8)] backdrop-blur-xl">
         <div className="flex items-center gap-4 mb-8">
-          <Link to="/profile" className="p-2 rounded-full hover:bg-gray-100">
+          <Link to="/profile" className="rounded-3xl bg-slate-900/90 p-3 text-slate-100 shadow-lg hover:bg-slate-800 transition">
             <ArrowLeft />
           </Link>
 
-          <h1 className="text-3xl font-bold">Update Profile</h1>
+          <div>
+            <h1 className="text-3xl font-bold">Update Profile</h1>
+            <p className="text-slate-400">Keep your BiteBox account details up to date.</p>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="font-semibold flex items-center gap-2 mb-2">
+              <label className="font-semibold flex items-center gap-2 mb-2 text-slate-200">
                 <User size={18} />
                 First Name
               </label>
@@ -174,12 +177,12 @@ function Update() {
                 onChange={handleChange}
                 placeholder="Enter First Name"
                 required
-                className="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full rounded-3xl border border-white/10 bg-slate-900/80 p-3 text-slate-100 outline-none focus:ring-2 focus:ring-orange-400"
               />
             </div>
 
             <div>
-              <label className="font-semibold flex items-center gap-2 mb-2">
+              <label className="font-semibold flex items-center gap-2 mb-2 text-slate-200">
                 <User size={18} />
                 Last Name
               </label>
@@ -191,13 +194,13 @@ function Update() {
                 onChange={handleChange}
                 placeholder="Enter Last Name"
                 required
-                className="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full rounded-3xl border border-white/10 bg-slate-900/80 p-3 text-slate-100 outline-none focus:ring-2 focus:ring-orange-400"
               />
             </div>
           </div>
 
           <div>
-            <label className="font-semibold flex items-center gap-2 mb-2">
+            <label className="font-semibold flex items-center gap-2 mb-2 text-slate-200">
               <User size={18} />
               Username
             </label>
@@ -209,12 +212,12 @@ function Update() {
               onChange={handleChange}
               placeholder="Enter Username"
               required
-              className="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full rounded-3xl border border-white/10 bg-slate-900/80 p-3 text-slate-100 outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
 
           <div>
-            <label className="font-semibold flex items-center gap-2 mb-2">
+            <label className="font-semibold flex items-center gap-2 mb-2 text-slate-200">
               <Mail size={18} />
               Email
             </label>
@@ -226,12 +229,12 @@ function Update() {
               onChange={handleChange}
               placeholder="Enter Email"
               required
-              className="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full rounded-3xl border border-white/10 bg-slate-900/80 p-3 text-slate-100 outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
 
           <div>
-            <label className="font-semibold flex items-center gap-2 mb-2">
+            <label className="font-semibold flex items-center gap-2 mb-2 text-slate-200">
               <Phone size={18} />
               Phone
             </label>
@@ -243,32 +246,31 @@ function Update() {
               onChange={handleChange}
               placeholder="Enter Phone"
               required
-              className="w-full border rounded-xl p-3 outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full rounded-3xl border border-white/10 bg-slate-900/80 p-3 text-slate-100 outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
 
           <button
             type="submit"
             disabled={saving}
-            className="w-full bg-red-500 hover:bg-red-600 disabled:bg-red-300 text-white py-3 rounded-xl font-semibold transition"
+            className="w-full rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 px-6 py-3 text-white font-semibold shadow-xl hover:opacity-95 transition disabled:bg-slate-700"
           >
             {saving ? "Saving..." : "Save Changes"}
           </button>
 
-          <hr className="my-6" />
+          <hr className="my-6 border-white/10" />
 
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-5">
-            <h2 className="text-xl font-bold text-red-600 mb-2">Danger Zone</h2>
+          <div className="rounded-[2rem] bg-slate-900/80 border border-white/10 p-5">
+            <h2 className="text-xl font-bold text-orange-300 mb-2">Danger Zone</h2>
 
-            <p className="text-gray-600 mb-5">
-              Deleting your account will permanently remove all your data. This
-              action cannot be undone.
+            <p className="text-slate-400 mb-5">
+              Deleting your account will permanently remove all your data. This action cannot be undone.
             </p>
 
             <button
               type="button"
               onClick={handleDelete}
-              className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold transition"
+              className="w-full flex items-center justify-center gap-2 rounded-3xl bg-red-600 hover:bg-red-700 text-white py-3 font-semibold transition"
             >
               <Trash2 size={20} />
               Delete Account

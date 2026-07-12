@@ -28,18 +28,16 @@ export default function Orders() {
 
   if (orders.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="text-center max-w-md">
-          <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Package className="w-12 h-12 text-gray-400" />
+      <div className="min-h-screen bg-[#05070f] flex items-center justify-center px-4 py-12 text-slate-100">
+        <div className="max-w-md rounded-[2rem] border border-white/10 bg-slate-950/95 p-8 text-center shadow-2xl">
+          <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-slate-900 text-orange-400 shadow-lg">
+            <Package className="w-12 h-12" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">No orders yet</h2>
-          <p className="text-gray-500 mb-6">
-            Looks like you haven't placed any orders. Start ordering your favorite food!
-          </p>
+          <h2 className="text-3xl font-bold mb-3">No orders yet</h2>
+          <p className="text-slate-400 mb-6">Looks like you haven't placed any orders. Start ordering your favorite food!</p>
           <Link
             to="/"
-            className="inline-block bg-red-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors"
+            className="inline-flex items-center justify-center rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 px-8 py-3 text-sm font-semibold text-white shadow-xl hover:opacity-95 transition"
           >
             Order Now
           </Link>
@@ -49,20 +47,26 @@ export default function Orders() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-[#05070f] py-10 text-slate-100">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Your Orders</h1>
-        <div className="space-y-4">
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-[0.35em] text-orange-400 font-semibold mb-2">Order history</p>
+            <h1 className="text-4xl font-bold">Your Orders</h1>
+          </div>
+          <p className="text-slate-400">Review past deliveries and reorder favorites instantly.</p>
+        </div>
+        <div className="space-y-6">
           {orders.map((order) => {
             const status = statusConfig[order.status];
             const StatusIcon = status.icon;
 
             return (
-              <div key={order.id} className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-start justify-between mb-4">
+              <div key={order.id} className="rounded-[2rem] border border-white/10 bg-slate-950/90 p-6 shadow-2xl">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
                   <div>
-                    <h3 className="font-bold text-gray-900 text-lg">{order.restaurantName}</h3>
-                    <p className="text-gray-500 text-sm">{order.id}</p>
+                    <h3 className="font-bold text-white text-xl">{order.restaurantName}</h3>
+                    <p className="text-slate-400 text-sm">{order.id}</p>
                   </div>
                   <div className={`flex items-center gap-2 px-3 py-1 rounded-full ${status.bgColor}`}>
                     <StatusIcon className={`w-4 h-4 ${status.color}`} />
@@ -72,28 +76,25 @@ export default function Orders() {
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {order.items.map((item, index) => (
-                    <div key={index} className="text-gray-600 text-sm">
+                    <div key={index} className="rounded-full border border-white/10 bg-slate-900/80 px-3 py-2 text-sm text-slate-300">
                       {item.quantity}x {item.name}
-                      {index < order.items.length - 1 && <span className="mx-1">•</span>}
                     </div>
                   ))}
                 </div>
 
-                <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                <div className="flex flex-col gap-3 text-sm text-slate-400 mb-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-1">
                     <Clock className="w-4 h-4" />
                     <span>{order.date}</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <span className="font-semibold text-gray-900">Total: ₹{order.total}</span>
-                  </div>
+                  <div className="text-slate-100 font-semibold">Total: ₹{order.total}</div>
                 </div>
 
                 {order.status !== 'delivered' && (
                   <div className="relative pt-2">
-                    <div className="absolute top-1/2 transform -translate-y-1/2 left-0 right-0 h-1 bg-gray-200 rounded-full">
+                    <div className="absolute top-1/2 transform -translate-y-1/2 left-0 right-0 h-1 bg-slate-800 rounded-full">
                       <div
-                        className="h-1 bg-red-500 rounded-full transition-all duration-500"
+                        className="h-1 bg-orange-500 rounded-full transition-all duration-500"
                         style={{
                           width:
                             order.status === 'preparing'
@@ -107,11 +108,11 @@ export default function Orders() {
                   </div>
                 )}
 
-                <div className="flex gap-4 mt-4 pt-4 border-t">
-                  <button className="flex-1 py-2 border border-gray-200 rounded-lg font-medium hover:bg-gray-50 transition-colors text-gray-700">
+                <div className="flex gap-4 mt-4 pt-4 border-t border-white/10">
+                  <button className="flex-1 rounded-3xl border border-white/10 bg-slate-900/90 py-3 text-sm font-medium text-slate-200 hover:bg-slate-900 transition">
                     View Details
                   </button>
-                  <button className="flex-1 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors">
+                  <button className="flex-1 rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 py-3 text-sm font-semibold text-white hover:opacity-95 transition">
                     Reorder
                   </button>
                 </div>

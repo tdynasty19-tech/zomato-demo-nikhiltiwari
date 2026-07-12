@@ -169,7 +169,7 @@ const sampleRestaurants: Restaurant[] = [
   {
     id: '3',
     name: 'Chai Point',
-    image: 'https://images.pexels.com/photos/3014562/pexels-photo-3014562.jpeg?auto=compress&cs=tinysrgb&w=600',
+    image: 'https://t3.ftcdn.net/jpg/06/22/17/92/360_F_622179282_tcxozP2YQcOGQU5hDaGmO6MWQOqS9pmi.jpg',
     cuisine: ['Beverages', 'Snacks', 'Cafe'],
     rating: 4.6,
     deliveryTime: '15-20 mins',

@@ -66,90 +66,68 @@ const Login: React.FC<LoginProps> = ({ setIsLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-5">
-      <div className="bg-white w-full max-w-md rounded-3xl shadow-xl p-8">
-        <h1 className="text-3xl font-bold text-center text-red-500">
-          Welcome Back
-        </h1>
+    <div className="min-h-screen bg-[#05070f] flex items-center justify-center px-5 py-12 text-slate-100">
+      <div className="w-full max-w-md rounded-[2rem] border border-white/10 bg-slate-950/95 p-8 shadow-[0_35px_90px_-30px_rgba(0,0,0,0.8)] backdrop-blur-xl">
+        <div className="mb-8 text-center">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-orange-500 to-red-500 text-white text-2xl font-bold shadow-xl">
+            B
+          </div>
+          <h1 className="text-4xl font-bold">Welcome Back</h1>
+          <p className="mt-3 text-slate-400">Login to continue with BiteBox</p>
+        </div>
 
-        <p className="text-center text-gray-500 mt-2 mb-8">
-          Login to continue
-        </p>
-
-        <form onSubmit={handleLogin} className="space-y-5">
-
-          {/* Phone Number */}
-
+        <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label className="font-medium mb-2 block">
-              Phone Number
-            </label>
-
-            <div className="flex items-center border rounded-xl px-3">
-              <Phone className="w-5 h-5 text-gray-400" />
-
+            <label className="font-medium text-slate-200 mb-2 block">Phone Number</label>
+            <div className="flex items-center gap-3 rounded-3xl border border-white/10 bg-slate-900/80 px-4 py-3 shadow-inner">
+              <Phone className="w-5 h-5 text-slate-500" />
               <input
                 type="tel"
                 name="phone"
                 placeholder="Enter Phone Number"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full p-3 outline-none"
+                className="w-full bg-transparent text-slate-100 outline-none placeholder:text-slate-500"
                 required
               />
             </div>
           </div>
 
-          {/* Password */}
-
           <div>
-            <label className="font-medium mb-2 block">
-              Password
-            </label>
-
-            <div className="flex items-center border rounded-xl px-3">
-              <Lock className="w-5 h-5 text-gray-400" />
-
+            <label className="font-medium text-slate-200 mb-2 block">Password</label>
+            <div className="flex items-center gap-3 rounded-3xl border border-white/10 bg-slate-900/80 px-4 py-3 shadow-inner">
+              <Lock className="w-5 h-5 text-slate-500" />
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Enter Password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full p-3 outline-none"
+                className="w-full bg-transparent text-slate-100 outline-none placeholder:text-slate-500"
                 required
               />
-
               <button
                 type="button"
-                onClick={() =>
-                  setShowPassword(!showPassword)
-                }
+                onClick={() => setShowPassword(!showPassword)}
+                className="text-slate-400 hover:text-slate-100 transition"
               >
-                {showPassword ? (
-                  <EyeOff className="w-5 h-5 text-gray-500" />
-                ) : (
-                  <Eye className="w-5 h-5 text-gray-500" />
-                )}
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-semibold transition"
+            className="w-full rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 px-6 py-3 text-lg font-semibold text-white shadow-xl hover:opacity-95 transition"
           >
             Login
           </button>
         </form>
 
         <div className="text-center mt-6">
-          <p className="text-gray-500">
-            Don't have an account?{" "}
-            <Link
-              to="/signup"
-              className="text-red-500 font-semibold hover:underline"
-            >
+          <p className="text-slate-400">
+            Don&apos;t have an account?{' '}
+            <Link to="/signup" className="text-orange-400 font-semibold hover:text-orange-300 transition">
               Sign Up
             </Link>
           </p>

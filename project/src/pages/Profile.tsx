@@ -136,106 +136,84 @@ export default function Profile({ setIsLogin }: ProfileProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-[#05070f] py-10 text-slate-100">
       <div className="max-w-4xl mx-auto px-4">
 
         {/* Profile Card */}
 
-        <div className="bg-white rounded-2xl p-6 shadow-sm mb-6">
-          <div className="flex items-center gap-4">
+        <div className="rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 shadow-2xl mb-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
 
-            <div className="relative">
-
-              <div className="w-20 h-20 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center">
-
-                <span className="text-3xl font-bold text-white">
-
-                  {profile.firstName.charAt(0)}
-                  {profile.lastName.charAt(0)}
-
-                </span>
-
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-xl">
+                  <span className="text-3xl font-bold text-white">
+                    {profile.firstName.charAt(0)}
+                    {profile.lastName.charAt(0)}
+                  </span>
+                </div>
+                <button className="absolute bottom-0 right-0 rounded-full bg-slate-950 border border-white/10 p-2 text-slate-100 shadow-lg hover:bg-slate-900 transition">
+                  <Camera className="w-4 h-4" />
+                </button>
               </div>
-
-              <button className="absolute bottom-0 right-0 bg-white rounded-full p-1.5 shadow-md hover:bg-gray-50">
-
-                <Camera className="w-4 h-4 text-gray-600" />
-
-              </button>
-
-            </div>
-
-            <div className="flex-1">
-
-              <h1 className="text-2xl font-bold">
-
-                {profile.firstName} {profile.lastName}
-
-              </h1>
-
-              <p className="text-gray-500">
-
-                @{profile.username}
-
-              </p>
-
-              <div className="flex items-center mt-2 text-gray-500">
-
-                <Mail className="w-4 h-4 mr-2" />
-
-                {profile.email}
-
+              <div>
+                <h1 className="text-3xl font-bold text-white">
+                  {profile.firstName} {profile.lastName}
+                </h1>
+                <p className="text-slate-400">@{profile.username}</p>
               </div>
-
-              <div className="flex items-center mt-2 text-gray-500">
-
-                <Phone className="w-4 h-4 mr-2" />
-
-                {profile.phone}
-
-              </div>
-
             </div>
 
             <button
               onClick={() => navigate("/update")}
-              className="..."
+              className="inline-flex items-center justify-center rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 px-6 py-3 text-sm font-semibold text-white shadow-xl hover:opacity-95 transition"
             >
               Edit Profile
             </button>
 
           </div>
 
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-4">
+              <div className="flex items-center gap-3 text-slate-300">
+                <Mail className="w-4 h-4" />
+                <span className="text-sm">{profile.email}</span>
+              </div>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-4">
+              <div className="flex items-center gap-3 text-slate-300">
+                <Phone className="w-4 h-4" />
+                <span className="text-sm">{profile.phone}</span>
+              </div>
+            </div>
+          </div>
         </div>
                 {/* Menu Items */}
 
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden mb-6">
+        <div className="rounded-[2rem] border border-white/10 bg-slate-950/95 shadow-2xl overflow-hidden mb-6">
           {menuItems.map((item, index) => (
             <Link
               key={item.label}
               to={item.href}
-              className={`flex items-center justify-between p-4 hover:bg-gray-50 transition-colors ${
-                index !== menuItems.length - 1 ? "border-b" : ""
-              }`}
+              className={`flex items-center justify-between gap-4 p-4 transition ${
+                index !== menuItems.length - 1 ? "border-b border-white/10" : ""
+              } bg-slate-950/95 hover:bg-slate-900/80`}
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-gray-600" />
+                <div className="w-10 h-10 rounded-full bg-slate-900/80 flex items-center justify-center text-orange-400">
+                  <item.icon className="w-5 h-5" />
                 </div>
-
-                <span className="font-medium text-gray-900">
-                  {item.label}
-                </span>
+                <span className="font-medium text-slate-100">{item.label}</span>
               </div>
 
               <div className="flex items-center gap-2">
                 {item.count && (
-                  <span className="bg-red-100 text-red-600 px-2 py-0.5 rounded-full text-sm font-medium">
+                  <span className="rounded-full bg-orange-500/10 px-3 py-1 text-sm font-medium text-orange-300">
                     {item.count}
                   </span>
                 )}
 
-                <ChevronRight className="w-5 h-5 text-gray-400" />
+                <ChevronRight className="w-5 h-5 text-slate-400" />
               </div>
             </Link>
           ))}
@@ -243,74 +221,43 @@ export default function Profile({ setIsLogin }: ProfileProps) {
 
         {/* Referral Card */}
 
-        <div className="bg-gradient-to-r from-amber-400 to-amber-500 rounded-2xl p-6 text-white mb-6">
-          <div className="flex items-center justify-between">
-
+        <div className="rounded-[2rem] bg-gradient-to-r from-orange-500 to-red-500 p-6 text-white mb-6 shadow-2xl">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-
-              <h3 className="font-bold text-lg mb-1">
-                Invite & Earn
-              </h3>
-
-              <p className="text-amber-100 text-sm">
-                Get ₹200 for every friend who orders
-                using your referral code.
+              <h3 className="font-bold text-lg mb-1">Invite & Earn</h3>
+              <p className="text-orange-100 text-sm">
+                Get ₹200 for every friend who orders using your referral code.
               </p>
-
             </div>
 
-            <div className="bg-white text-amber-600 px-5 py-2 rounded-xl font-bold">
-
+            <div className="rounded-3xl bg-white px-5 py-2 text-orange-600 font-bold">
               {profile.username.toUpperCase()}200
-
             </div>
-
           </div>
         </div>
 
         {/* Saved Addresses */}
 
-        <div className="bg-white rounded-2xl p-6 shadow-sm mb-6">
+        <div className="bg-slate-900 rounded-[2rem] p-6 shadow-2xl border border-white/10 mb-6">
 
           <div className="flex justify-between items-center mb-4">
-
-            <h2 className="text-xl font-bold">
-              Saved Addresses
-            </h2>
-
-            <button className="text-red-500 hover:text-red-600 font-semibold">
-              Add New
-            </button>
-
+            <h2 className="text-xl font-bold text-white">Saved Addresses</h2>
+            <button className="text-orange-400 hover:text-orange-300 font-semibold">Add New</button>
           </div>
 
           <div className="space-y-3">
-
             {addresses.map((address) => (
-
               <div
                 key={address.id}
-                className="flex items-start gap-3 border rounded-xl p-4 hover:border-red-500 transition"
+                className="flex items-start gap-3 rounded-3xl border border-white/10 p-4 bg-slate-950/80 hover:border-orange-400 transition"
               >
-
-                <MapPin className="w-5 h-5 text-gray-500 mt-1" />
-
+                <MapPin className="w-5 h-5 text-orange-400 mt-1" />
                 <div>
-
-                  <h4 className="font-semibold">
-                    {address.type}
-                  </h4>
-
-                  <p className="text-gray-500 text-sm">
-                    {address.address}
-                  </p>
-
+                  <h4 className="font-semibold text-white">{address.type}</h4>
+                  <p className="text-slate-400 text-sm">{address.address}</p>
                 </div>
-
               </div>
-
             ))}
-
           </div>
 
         </div>
@@ -319,14 +266,14 @@ export default function Profile({ setIsLogin }: ProfileProps) {
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 bg-white text-red-500 py-4 rounded-2xl shadow-sm hover:bg-red-50 transition font-semibold"
+          className="w-full flex items-center justify-center gap-2 rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 py-4 text-white shadow-xl font-semibold hover:opacity-95 transition"
         >
           <LogOut className="w-5 h-5" />
           Log Out
         </button>
 
-        <p className="text-center text-gray-500 text-sm mt-6">
-          Zomato Clone © 2026. All rights reserved.
+        <p className="text-center text-slate-400 text-sm mt-6">
+          BiteBox © 2026. All rights reserved.
         </p>
 
       </div>
