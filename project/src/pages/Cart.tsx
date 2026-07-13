@@ -60,6 +60,144 @@ export default function Cart() {
   const discount = appliedPromo ? 100 : 0;
   const total = subtotal + deliveryFee + taxes - discount;
 
+  const loadRazorpay = () => {
+
+    return new Promise((resolve) => {
+
+      const script = document.createElement("script");
+
+      script.src =
+        "https://checkout.razorpay.com/v1/checkout.js";
+
+
+      script.onload = () => {
+
+        resolve(true);
+
+      };
+
+
+      script.onerror = () => {
+
+        resolve(false);
+
+      };
+
+
+      document.body.appendChild(script);
+
+
+    });
+
+  };
+  const handlePayment = async () => {
+
+    const isLoaded = await loadRazorpay();
+
+    if (!isLoaded) {
+      alert("Razorpay SDK failed to load.");
+      return;
+    }
+
+    try {
+
+      const response = await fetch(
+        "http://localhost:8000/api/payment/create-payment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            amount: total,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message || "Unable to create payment.");
+        return;
+      }
+
+      const options = {
+
+        // 👇 Replace with your Razorpay Test Key
+        key: "rzp_test_TCl0Wvgdz6wKhZ",
+
+        amount: data.order.amount,
+
+        currency: data.order.currency,
+
+        name: "BiteBox",
+
+        description: "Food Order",
+        method: {
+          card: true,
+          upi: true,
+          netbanking: true,
+          wallet: true,
+        },
+
+        order_id: data.order.id,
+
+        handler: function (response: any) {
+
+          console.log("Payment Successful");
+
+          console.log(response.razorpay_payment_id);
+
+          console.log(response.razorpay_order_id);
+
+          console.log(response.razorpay_signature);
+
+          // Temporary
+          placeOrder(address);
+
+          setShowOrderSuccess(true);
+
+        },
+
+        prefill: {
+
+          name: "Nikhil",
+
+          email: "user@gmail.com",
+
+          contact: "9999999999",
+
+        },
+
+        theme: {
+
+          color: "#ff4d2d",
+
+        },
+
+      };
+
+      const Razorpay = (window as any).Razorpay;
+
+      if (!Razorpay) {
+        alert("Razorpay SDK not found.");
+        return;
+      }
+
+      const razorpay = new Razorpay(options);
+
+      razorpay.open();
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert("Something went wrong while initiating payment.");
+
+    }
+
+  };
+
   const handleApplyPromo = () => {
     if (promoCode.toUpperCase() === 'BITEBOX100') {
       setAppliedPromo('BITEBOX100');
@@ -184,7 +322,7 @@ export default function Cart() {
               </div>
             </div>
             <button
-              onClick={handlePlaceOrder}
+              onClick={handlePayment}
               className="mt-8 w-full rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 px-6 py-4 text-lg font-semibold text-white shadow-xl hover:opacity-95 transition"
             >
               Place Order
