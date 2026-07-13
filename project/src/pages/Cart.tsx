@@ -102,7 +102,7 @@ export default function Cart() {
     try {
 
       const response = await fetch(
-        "https://zomato-demo-nikhiltiwari-production.up.railway.app/api/payment/create-order",
+        "https://zomato-demo-nikhiltiwari-production.up.railway.app/api/payment/create-payment",
         {
           method: "POST",
           headers: {
